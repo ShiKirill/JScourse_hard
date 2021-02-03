@@ -1,17 +1,41 @@
 "use strict";
 
-const userString = prompt('Введите строку');
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
-const strFunction = function(str){
-  if (typeof str !== 'string') {
-    return 'Переменная не является строкой';
-  } else {
-    str = str.trim();
-    if (str.length > 30) {
-      str = str.slice(0, 30) + '...';
+function isPrime(num){
+  for (let i = 2; i < +num; i++){
+    if ((+num % i) === 0){
+      return false;
     }
-    return str;
   }
-};
+  return true;
+}
 
-console.log(strFunction(userString));
+let arr = [];
+
+for (let i = 0; i< 7; i++){
+  arr[i] = String(getRandomInt(1500, 20000));
+}
+
+let tmp = 0;
+for (let i=0; i<7; i++){
+  if (arr[i][0] ==='2' || arr[i][0] ==='4') {
+    console.log(arr[i]);
+    tmp++;
+  }
+}
+
+if (tmp===0){
+  console.log('Таких чисел нет');
+}
+
+console.log('Простые числа: ');
+for (let i = 2; i <= 100; i++){
+  if (isPrime(i)) {
+    console.log(i + ` Делители данного числа: 1 и ${i}`);
+  }
+}
