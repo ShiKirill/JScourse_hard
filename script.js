@@ -1,64 +1,23 @@
 "use strict";
 
-function isNumber(n) {
-    return (!isNaN(parseFloat(n)) && isFinite(n));
+const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+let date = new Date();
+let today = date.getDay()-1 ;
+if (today <0) {today = 6;
 }
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function game() {
-    let botNumber = getRandomInt(1, 100);
-    let userAttempts = 10;
-    function gameProgress() {
-        if (userAttempts > 0) {
-            let userNumber = prompt('Угадай число от 1 до 100');
-            if (isNumber(userNumber)) {
-                if (+ userNumber > botNumber) {
-                    userAttempts--;
-                    let check = confirm(`Загаданное число меньше, осталось ${userAttempts} попыток. Хотите продолжить?`);
-                    if (check) {
-                        gameProgress();
-                    } else {
-                        return alert('Игра окончена');
-                    }
-                } else if (+ userNumber < botNumber) {
-                    userAttempts--;
-                    let check = confirm(`Загаданное число больше, осталось ${userAttempts} попыток. Хотите продолжить?`);
-                    if (check) {
-                        gameProgress();
-                    } else {
-                        return alert('Игра окончена');
-                    }
-                } else {
-                    let check = confirm('Поздравляю, вы угадали!!! Хотели бы сыграть ещё?');
-                    if (check) {
-                        game();
-                    } else {
-                        return alert('Игра окончена');
-                    }
-                }
-            } else {
-                let check = confirm('Введи число!');
-                if (check) {
-                    gameProgress();
-                } else {
-                    return alert('Игра окончена');
-                }
-            }
-        } else {
-            let check = confirm('Попытки закончились. Хотите сыграть ещё?');
-            if (check) {
-                game();
-            } else {
-                return alert('Игра окончена');
-            }
-        }
+for (let i=0 ; i < week.length ; i++){
+    let div = document.createElement('div');
+    if (today === i) {
+        div.innerHTML = `<b>${week[i]}</b>`;
+        document.body.append(div);
+    } else if (i < week.length-2){
+        div.innerHTML = `${week[i]}`;
+        document.body.append(div);
+    } else {
+        div.innerHTML = `<i>${week[i]}</i>`;
+        document.body.append(div);
     }
-    gameProgress();
 }
-
-game();
+// 
+//     
