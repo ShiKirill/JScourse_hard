@@ -1,90 +1,30 @@
 "use strict";
 
-const hourEnding = function (k) {
-    if (k % 10 === 1 && k !== 11) {
-        return 'час';
-    } else if ((k < 10 || k > 20) && (k % 10 >= 2 && k % 10 <= 4)) {
-        return 'часа';
-    } else {
-        return 'часов';
-    }
-};
+function DomElement(selector, height, width, bg, fontSize){
+    this.selector = selector;
+    this.height = height;
+    this.width = width;
+    this.bg = bg;
+    this.fontSize = fontSize;
+    this.createElem = function() {
+        if (selector[0] === '.') {
+            const div = document.createElement('div');
+            div.classList.add(selector.slice(1));
+            div.style.cssText = 'height:' + this.height + ';width:' + this.width + ';background-color:' + this.bg + ';font-size:'+ this.fontSize+';';
+            div.textContent = 'Hello world!';
+            document.body.append(div);
+        } else if (selector[0] === '#') {
+            const p = document.createElement('p');
+            p.id = selector.slice(1);
+            p.style.cssText = 'height:' + this.height + ';width:' + this.width + ';background-color:' + this.bg + ';font-size:'+ this.fontSize+';';
+            p.textContent = 'Hello world!';
+            document.body.append(p);
+        } else {
+            console.log('Ошибка в selector!');
+        }
+    };
+}
 
-const minutedEnding = function (k) {
-    if (k % 10 === 1 && k !== 11) {
-        return 'минута';
-    } else if ((k < 10 || k > 20) && (k % 10 >= 2 && k % 10 <= 4)) {
-        return 'минуты';
-    } else {
-        return 'минут';
-    }
-};
+let newObject = new DomElement('.block', '200px', '500px', '#aa2812','24px');
 
-const secondEnding = function (k) {
-    if (k % 10 === 1 && k !== 11) {
-        return 'секунда';
-    } else if ((k < 10 || k > 20) && (k % 10 >= 2 && k % 10 <= 4)) {
-        return 'секунды';
-    } else {
-        return 'секунд';
-    }
-};
-
-const addZero = function (k) {
-    if (k / 10 < 1) {
-        return '0' + k;
-    } else {
-        return k;
-    }
-};
-
-const week = [
-    'Понедельник',
-    'Вторник',
-    'Среда',
-    'Четверг',
-    'Пятница',
-    'Суббота',
-    'Воскресенье'
-];
-const month = [
-    'января',
-    'февраля',
-    'марта',
-    'апреля',
-    'мая',
-    'июня',
-    'июля',
-    'августа',
-    'сентября',
-    'октября',
-    'ноября',
-    'декабря'
-];
-
-setInterval(function () {
-    document.body.innerHTML = '';
-    const date = new Date();
-    let today = date.getDay() - 1;
-    if (today < 0) {
-        today = 6;
-    }
-    const currentMonthDay = date.getDate();
-    const currentMonth = date.getMonth();
-    const currentYear = date.getFullYear();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    const fullStr = 'Сегодня ' + week[today] + ', ' + currentMonthDay + ' ' + month[currentMonth] + ' ' + currentYear + ' года, ' + hours + ' ' + hourEnding(hours) + ' ' + minutes + ' ' + minutedEnding(minutes) + ' ' + seconds + ' ' + secondEnding(seconds);
-    const shortStr = addZero(currentMonthDay) + '.' + addZero(currentMonth) + '.' + currentYear + ' - ' + addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
-    const strType = [fullStr, shortStr];
-
-    let div = [];
-    for (let i = 0; i < 2; i++) {
-        div[i] = document.createElement('div');
-        div[i].innerHTML = strType[i];
-        document
-            .body
-            .append(div[i]);
-    }
-}, 1000);
+newObject.createElem();
