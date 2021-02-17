@@ -7,15 +7,15 @@ function DomElement(selector, height, width, bg, fontSize){
     this.bg = bg;
     this.fontSize = fontSize;
     this.createElem = function() {
-        if (selector[0] === '.') {
+        if (this.selector[0] === '.') {
             const div = document.createElement('div');
-            div.classList.add(selector.slice(1));
+            div.classList.add(this.selector.slice(1));
             div.style.cssText = 'height:' + this.height + ';width:' + this.width + ';background-color:' + this.bg + ';font-size:'+ this.fontSize+';';
             
             document.body.append(div);
-        } else if (selector[0] === '#') {
+        } else if (this.selector[0] === '#') {
             const p = document.createElement('p');
-            p.id = selector.slice(1);
+            p.id = this.selector.slice(1);
             p.style.cssText = 'height:' + this.height + ';width:' + this.width + ';background-color:' + this.bg + ';font-size:'+ this.fontSize+';';
             
             document.body.append(p);
