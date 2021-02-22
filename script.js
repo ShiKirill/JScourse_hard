@@ -1,30 +1,18 @@
 "use strict";
 
-function DomElement(selector, height, width, bg, fontSize){
-    this.selector = selector;
-    this.height = height;
-    this.width = width;
-    this.bg = bg;
-    this.fontSize = fontSize;
-    this.createElem = function() {
-        if (this.selector[0] === '.') {
-            const div = document.createElement('div');
-            div.classList.add(this.selector.slice(1));
-            div.style.cssText = 'height:' + this.height + ';width:' + this.width + ';background-color:' + this.bg + ';font-size:'+ this.fontSize+';';
-            div.textContent = 'Hello world!';
-            document.body.append(div);
-        } else if (this.selector[0] === '#') {
-            const p = document.createElement('p');
-            p.id = this.selector.slice(1);
-            p.style.cssText = 'height:' + this.height + ';width:' + this.width + ';background-color:' + this.bg + ';font-size:'+ this.fontSize+';';
-            p.textContent = 'Hello world!';
-            document.body.append(p);
-        } else {
-            console.log('Ошибка в selector!');
+const input = document.querySelector('.input');
+const text = document.querySelector('.text');
+function debounce(f, t) {
+    return function () {
+        let previousCall = this.lastCall;
+        this.lastCall = Date.now();
+        if (previousCall && ((this.lastCall - previousCall) <= t)) {
+            clearTimeout(this.lastCallTimer);
         }
-    };
+        this.lastCallTimer = setTimeout(() => f(), t);
+    }
 }
-
-let newObject = new DomElement('.block', '200px', '500px', '#aa2812','24px');
-
-newObject.createElem();
+function setValue() {
+    text.textContent = input.value;
+}
+input.addEventListener('input', debounce(setValue, 300));
